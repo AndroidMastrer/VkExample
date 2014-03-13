@@ -1,4 +1,4 @@
-package com.example.vkexample;
+package com.example.vkexample.restapi;
 
 public class ServerResponse {
     public int httpCode;

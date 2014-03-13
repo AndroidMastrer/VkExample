@@ -20,7 +20,7 @@ import android.graphics.Bitmap;
 
 public class AuthActivity extends Activity {
 	private static final String TAG = AuthActivity.class.getSimpleName();
-	
+
 	public static final String OUT_EXTRA_TOKEN = "token";
 	public static final String OUT_EXTRA_USER_ID = "user_id";
 	WebView webview;
@@ -29,7 +29,8 @@ public class AuthActivity extends Activity {
 		String url = null;
 		try {
 			url = "https://oauth.vk.com/authorize?client_id="
-					+ Constants.APP_ID + "&display=mobile&redirect_uri="
+					+ Constants.APP_ID + "&display=mobile&scope="
+					+ Constants.PERMISSIONS + "&redirect_uri="
 					+ URLEncoder.encode(Constants.REDIRECT_URL, "UTF-8")
 					+ "&response_type=token" + "&v="
 					+ URLEncoder.encode(Constants.API_VERSION, "UTF-8");

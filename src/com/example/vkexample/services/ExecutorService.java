@@ -1,4 +1,4 @@
-package com.example.vkexample;
+package com.example.vkexample.services;
 
 import java.lang.reflect.Constructor;
 

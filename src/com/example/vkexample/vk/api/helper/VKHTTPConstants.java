@@ -1,4 +1,4 @@
-package com.example.vkexample;
+package com.example.vkexample.vk.api.helper;
 
 public class VKHTTPConstants {
     public static final int HTTP_OK = 200;

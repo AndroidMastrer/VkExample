@@ -1,4 +1,7 @@
-package com.example.vkexample;
+package com.example.vkexample.vk.api;
+
+import com.example.vkexample.restapi.ServerResponse;
+import com.example.vkexample.vk.api.helper.VKRestApiHelper;
 
 import android.content.Intent;
 import android.os.Bundle;

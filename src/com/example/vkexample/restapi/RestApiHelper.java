@@ -1,4 +1,4 @@
-package com.example.vkexample;
+package com.example.vkexample.restapi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+
+import com.example.vkexample.vk.api.helper.VKHTTPConstants;
 
 import android.util.Log;
 
