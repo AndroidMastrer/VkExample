@@ -15,6 +15,7 @@ public class VKRestApiHelper extends RestApiHelper {
 	protected static final String TAG = VKRestApiHelper.class.getSimpleName();
 	public static final String EXTRA_ACCESS_TOKEN = "vk_access_token";
 	public static final String EXTRA_RESULT_RECEIVER = "result_receiver";
+	public static final String EXTRA_RESULT_ACTION = "result_action";
 
 	public static final int RESULT_NETWORK_PROBLEM = 1;
 	public static final int RESULT_OK = 0;
