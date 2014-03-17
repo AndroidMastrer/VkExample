@@ -3,33 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
-
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/vk_auth_text" />
     
-    <EditText 
-        android:id="@+id/login_name"
+    <Button android:id="@+id/refresh_wallmessages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:hint="@string/login_name_text"/>
-    
-    <EditText 
-        android:id="@+id/login_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_name"
-        android:inputType="textPassword"
-        android:hint="@string/login_password_text"/>
-    
-    <Button android:id="@+id/login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_password"
-        android:text="@string/login_btn_text"/>
+        android:text="@string/refresh_wallmessages"/>
 
 </RelativeLayout>

@@ -1,21 +1,21 @@
 package com.example.vkexample.activity;
 
-import com.example.vkexample.R;
 import com.example.vkexample.VkExampleApplication;
+import com.example.vkexample.receiver.ServiceResultReceiver;
 import com.example.vkexample.vk.VkSession;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import android.app.Activity;
-import android.content.Intent;
 
-public class BaseActivity extends Activity implements OnClickListener {
+public class BaseActivity extends Activity implements OnClickListener,
+		ServiceResultReceiver.Receiver {
 	protected VkSession mSession;
 	private Toast mToast;
+	protected ServiceResultReceiver mReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,12 @@ public class BaseActivity extends Activity implements OnClickListener {
 		initView();
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mReceiver.setReceiver(null);
+	}
+
 	protected void initView() {
 	}
 
@@ -35,11 +41,11 @@ public class BaseActivity extends Activity implements OnClickListener {
 	}
 
 	protected void initSession() {
-		mSession = ((VkExampleApplication) getApplicationContext())
+		mSession = ((VkExampleApplication) getApplication())
 				.getVkSession();
 	}
 
-	private void showMessage(int resId) {
+	protected void showMessage(int resId) {
 		if (mToast == null)
 			mToast = Toast.makeText(this, resId, Toast.LENGTH_LONG);
 		else
@@ -48,7 +54,20 @@ public class BaseActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		mReceiver = new ServiceResultReceiver(new Handler());
+		mReceiver.setReceiver(this);
+	}
+
+	@Override
 	public void onClick(View v) {
+	}
+
+	@Override
+	public void onReceiveResult(int resultCode, Bundle data) {
+		switch (resultCode) {
+		}
 	}
 
 }

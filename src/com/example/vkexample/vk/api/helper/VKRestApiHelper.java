@@ -28,10 +28,15 @@ public class VKRestApiHelper extends RestApiHelper {
 		ResultReceiver receiver = intent
 				.getParcelableExtra(EXTRA_RESULT_RECEIVER);
 		if (receiver != null) {
-			if (!response.response.contains("error")) {
-				parceResponse(response);
-			} else {
+			if (response.response.contains("error")) {
 				response = parceError(response.response);
+			} else if (response.httpCode == VKHTTPConstants.HTTP_OK) {
+				try {
+					parceResponse(new JSONObject(response.response));
+				} catch (JSONException ex) {
+					Log.e(TAG, "Can't get json from string "
+							+ response.response);
+				}
 			}
 			receiver.send(response.httpCode, getBundleParams());
 		}
@@ -49,7 +54,7 @@ public class VKRestApiHelper extends RestApiHelper {
 		return new ServerResponse(VKHTTPConstants.VK_UNKNOWN_ERROR, null);
 	}
 
-	protected void parceResponse(ServerResponse response) {
+	protected void parceResponse(JSONObject response) {
 	}
 
 	protected Bundle getBundleParams() {
