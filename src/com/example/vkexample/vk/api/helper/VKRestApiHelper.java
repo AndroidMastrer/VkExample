@@ -14,6 +14,7 @@ import android.util.Log;
 public class VKRestApiHelper extends RestApiHelper {
 	protected static final String TAG = VKRestApiHelper.class.getSimpleName();
 	public static final String EXTRA_ACCESS_TOKEN = "vk_access_token";
+	public static final String EXTRA_USER_ID = "vk_owner_user_id";
 	public static final String EXTRA_RESULT_RECEIVER = "result_receiver";
 	public static final String EXTRA_RESULT_ACTION = "result_action";
 

@@ -22,13 +22,16 @@ public class Attachment implements Parcelable {
 
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     public Photo photo;
-    
-    @DatabaseField(foreign=true, foreignAutoCreate = true, foreignAutoRefresh = true)
+
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Post post;
 
     @Override
     public int describeContents() {
 	return 0;
+    }
+
+    public Attachment() {
     }
 
     @Override

@@ -32,6 +32,9 @@ public class Link implements Parcelable {
 	return 0;
     }
 
+    public Link() {
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 	dest.writeInt(Id);
