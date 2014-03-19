@@ -24,12 +24,12 @@ public class VKPostsDBHelper {
 	}
     }
 
-    public static List<Post> getPostList(Long ownerId) {
+    public static List<Post> getPostList(Long ownerId, long offset, long limit) {
 	List<Post> posts = new ArrayList<Post>();
 	try {
 	    final Dao<Post, Integer> postsDao = VKDatabaseHelper.getDatabaseHelper().getPostDao();
 	    QueryBuilder<Post, Integer> queryBuilder = postsDao.queryBuilder();
-	    queryBuilder.orderBy("date", false).where().eq("ownerId", ownerId);
+	    queryBuilder.orderBy("date", false).limit(limit).offset(offset).where().eq("ownerId", ownerId);
 
 	    PreparedQuery<Post> preparedQuery = queryBuilder.prepare();
 	    posts = postsDao.query(preparedQuery);

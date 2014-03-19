@@ -3,6 +3,7 @@ package com.example.vkexample.vk.api;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.json.JSONArray;
@@ -26,19 +27,21 @@ public class WallGet extends VKRestApiHelper {
     private static final int COUNT = 20;
     private List<Post> mPosts;
     private Long mUserId;
+    private long mOffset = 0;
+    private long mLimit = COUNT;
 
     public WallGet(Intent intent) {
 	mPosts = new ArrayList<Post>();
-	long offset = intent.getIntExtra(EXTRA_OFFSET, 0);
-	long limit = intent.getIntExtra(EXTRA_COUNT, COUNT);
+	mOffset = intent.getIntExtra(EXTRA_OFFSET, 0);
+	mLimit = intent.getIntExtra(EXTRA_COUNT, COUNT);
 	mUserId = intent.getLongExtra(EXTRA_USER_ID, 0);
-	mPosts.addAll(VKPostsDBHelper.getPostList(mUserId));
-	if (offset > 0 && mPosts.size() > 0) {
+	mPosts.addAll(VKPostsDBHelper.getPostList(mUserId, mOffset, mLimit));
+	if (mOffset > 0 && mPosts.size() > 0) {
 	    ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RESULT_RECEIVER);
 	    receiver.send(VKHTTPConstants.HTTP_OK, getBundleParams());
 	}
 	StringBuilder request = new StringBuilder("wall.get?");
-	request.append("offset=").append(offset).append("&count=").append(limit).append("&access_token=")
+	request.append("offset=").append(mOffset).append("&count=").append(mLimit).append("&access_token=")
 		.append(intent.getStringExtra(EXTRA_ACCESS_TOKEN));
 	sendResult(doGet(request.toString()), intent);
     }
@@ -54,6 +57,7 @@ public class WallGet extends VKRestApiHelper {
 	    temp = new Post(items.optJSONObject(i));
 	    postsToDB.addAll(Arrays.asList(temp.copyHistoreArray));
 	    attachsToDB.addAll(Arrays.asList(temp.attachmentsArray));
+	    	    
 	    if (mPosts.contains(temp)){
 		mPosts.;
 	    }
@@ -63,7 +67,7 @@ public class WallGet extends VKRestApiHelper {
 	VKPostsDBHelper.addPosts(postsToDB);
 	VKAttachmentsDBHelper.addAttachments(attachsToDB);
 	mPosts.clear();
-	mPosts.addAll(VKPostsDBHelper.getPostList(mUserId));
+	mPosts.addAll(VKPostsDBHelper.getPostList(mUserId, mOffset, mLimit));
     }
 
     protected Bundle getBundleParams() {
