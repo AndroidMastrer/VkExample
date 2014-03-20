@@ -24,6 +24,15 @@ public class VKPostsDBHelper {
 	}
     }
 
+    public static void removePosts(Collection<Post> posts) {
+	try {
+	    final Dao<Post, Integer> postDao = VKDatabaseHelper.getDatabaseHelper().getPostDao();
+	    postDao.delete(posts);
+	} catch (Exception e) {
+	    Log.d(TAG, "Can't add VK post to database");
+	}
+    }
+
     public static List<Post> getPostList(Long ownerId, long offset, long limit) {
 	List<Post> posts = new ArrayList<Post>();
 	try {

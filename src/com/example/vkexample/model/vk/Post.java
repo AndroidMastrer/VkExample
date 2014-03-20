@@ -18,7 +18,7 @@ import android.os.Parcelable;
 public class Post implements Parcelable, Comparable<Post> {
 
     @DatabaseField(generatedId = true)
-    private int Id;
+    public int Id;
 
     @DatabaseField
     public long postId;
@@ -27,7 +27,7 @@ public class Post implements Parcelable, Comparable<Post> {
     public long fromId;
 
     @DatabaseField
-    public long ownerId;
+    public Long ownerId;
 
     @DatabaseField
     public Long date;
@@ -49,7 +49,7 @@ public class Post implements Parcelable, Comparable<Post> {
 
     public Post[] copyHistoreArray;
     public Attachment[] attachmentsArray;
-
+    
     @Override
     public int describeContents() {
 	return 0;
@@ -140,7 +140,10 @@ public class Post implements Parcelable, Comparable<Post> {
 
     @Override
     public int compareTo(Post another) {
-	return date.compareTo(another.date);
+	int res = date.compareTo(another.date);
+	if(res == 0)
+	    ownerId.compareTo(ownerId);
+	return res;
     }
 
     @Override

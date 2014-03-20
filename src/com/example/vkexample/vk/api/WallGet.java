@@ -3,7 +3,6 @@ package com.example.vkexample.vk.api;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.json.JSONArray;
@@ -51,18 +50,36 @@ public class WallGet extends VKRestApiHelper {
 	response = response.optJSONObject("response");
 	JSONArray items = response.optJSONArray("response");
 	List<Post> postsToDB = new ArrayList<Post>();
+	List<Post> postsFromDB = new ArrayList<Post>();
 	List<Attachment> attachsToDB = new ArrayList<Attachment>();
+	List<Attachment> attachsFromDB = new ArrayList<Attachment>();
 	Post temp;
+
+	TreeSet<Post> sortedPosts = new TreeSet<Post>(mPosts);
+	Post sortedTemp;
+	int tempInd;
 	for (int i = 0; i < items.length(); i++) {
 	    temp = new Post(items.optJSONObject(i));
 	    postsToDB.addAll(Arrays.asList(temp.copyHistoreArray));
 	    attachsToDB.addAll(Arrays.asList(temp.attachmentsArray));
-	    	    
-	    if (mPosts.contains(temp)){
-		mPosts.;
+	    tempInd = mPosts.indexOf(temp);
+	    if (tempInd >= 0) {
+		temp.Id = mPosts.get(tempInd).Id;
+		mPosts.set(tempInd, temp);
+	    } else {
+		sortedPosts.add(temp);
+		while (!sortedPosts.first().equals(temp)) {
+		    sortedTemp = sortedPosts.pollFirst();
+		    mPosts.remove(sortedTemp);
+		    postsFromDB.addAll(sortedTemp.copyHistory);
+		    attachsFromDB.addAll(sortedTemp.attachments);
+		    postsFromDB.add(sortedTemp);
+		}
+		mPosts.add(temp);
 	    }
-	    mPosts.add(temp);
 	}
+	VKPostsDBHelper.removePosts(postsFromDB);
+	VKAttachmentsDBHelper.removeAttachments(attachsFromDB);
 	VKPostsDBHelper.addPosts(mPosts);
 	VKPostsDBHelper.addPosts(postsToDB);
 	VKAttachmentsDBHelper.addAttachments(attachsToDB);
